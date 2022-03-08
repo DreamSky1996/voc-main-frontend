@@ -1,0 +1,328 @@
+.shares-view{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: 89%;
+  max-width: 833px;
+  margin: auto;
+
+  .shares-view-card{
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+
+    position: relative;
+    z-index: 2;
+    
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
+    }
+  
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: #181B1C;
+    }
+
+    .shares-view-card-header{
+      .shares-view-card-title{
+        font-family: Montserrat Bold;
+        font-weight: bold;
+        font-size: 20px;
+        color: #FFFFFF;
+      }
+    }
+
+    .share-view-body {
+      .shares-view-card-metrics{
+        margin: 30px 0;
+        
+        .shares-view-card-metrics-title{
+          font-family: Montserrat Medium;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 24px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      
+        .shares-view-card-metrics-value{
+          font-family: Montserrat Bold;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 29px;
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+        }
+      }
+
+      .share-view-create {
+        text-align: -webkit-center;
+        padding: 20px;
+        max-width: 600px;
+        margin: auto;
+
+        .share-create-name{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          p{
+            font-family: Montserrat SemiBold;
+            font-weight: 500;
+            font-size: 16px;
+            color: #FFFFFF;
+          }
+        }
+        
+        .share-create-action-input{
+          width: 100%;
+
+          background: rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          border-radius: 10px;
+          outline: none;
+          
+          .MuiOutlinedInput-input{
+            font-family: Montserrat Medium;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 10px 16px;
+          }
+          
+          .MuiOutlinedInput-notchedOutline{
+            border-color: rgba(255, 255, 255, 0.2) !important;
+          }
+          
+          .stake-card-action-input-btn{
+            cursor: pointer;
+              
+            p{
+              font-family: Montserrat SemiBold;
+              font-weight: 600;
+              font-size: 18px;
+              color: #FFFFFF;
+            }
+          }
+        } 
+        .share-create-btn{
+          background: rgba(255, 255, 255, 0.2);
+          border: 1px solid #767676;
+          border-radius: 10px;
+          padding: 10px 35.5px;
+          text-align: center;
+          max-width: 450px;
+          margin-top: 15px;
+      
+          &:hover{
+            border: 1px solid rgba(255, 255, 255, 0.6);
+          }
+        
+          p{
+            font-family: Montserrat Semibold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            color: #FFFFFF;
+          }
+        }
+      }
+
+      .share-table {
+        padding-top: 20px;
+        .share-table-header {
+          display: flex;
+          width: 100%;
+          padding-top: 10px;
+          .share-table-header-name {
+            width: 25%;
+          }
+          .share-table-header-reward {
+            width: 25%;
+          }
+          .share-table-header-action {
+            width: 50%;
+            .share-name-title {
+              text-align: center;
+            }
+          }
+         
+        }
+        .share-table-body {
+          max-height: 375px;
+          overflow-y: auto;
+          margin-top: 25px;
+          padding-right: 8px;
+          .share-table-body-row {
+            align-items: center;
+            display: flex;
+            width: 100%;
+            padding-bottom: 10px;
+            .share-table-body-name {
+              width: 25%;
+            }
+            .share-table-body-reward {
+              width: 25%;
+            }
+            .share-table-body-action {
+              width: 25%;
+              padding: 0px 10px;
+            }
+          }
+          
+        }
+      }
+    }
+
+    .voc-card-wallet-notification{
+      text-align: center;
+
+      .voc-card-wallet-connect-btn{
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+        border-radius: 10px;
+        padding: 14px 58px;
+        cursor: pointer;
+        margin: auto;
+        max-width: 280px;
+        margin-top: 20px;
+
+        &:hover{
+          border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+      
+        p{
+          font-family: Montserrat SemiBold;
+          font-weight: 600;
+          font-size: 18px;
+          color: #FFFFFF;
+        }
+      }
+
+      .voc-card-wallet-desc-text{
+        font-family: Montserrat Light;
+        font-weight: 300;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 10px;
+        margin-bottom: 6px;
+      }
+    }
+    
+  }
+
+  .shares-view-card-container{
+    margin-top: 16px;
+
+    .share-data-card {
+      margin: auto !important;
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
+      border-radius: 10px;
+      padding: 10px;
+      width: 100%;
+
+      .share-pair {
+        display: flex !important;
+        align-items: center;
+        justify-content: left;
+        margin-bottom: 15px;
+        .MuiBox-root {
+          margin-right: 10px;
+        }
+        .share-name {
+          svg {
+            margin-left: 5px;
+            vertical-align: middle;
+            font-size: 15px;
+          }
+        }
+      }
+      .data-row {
+        margin-bottom: 13px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin: 12px 0;
+  
+        .share-price {
+          display: flex;
+          align-items: center;
+  
+          svg {
+            margin-right: 5px;
+          }
+        }
+      }
+      .share-link {
+        margin-top: 10px;
+        text-align: center;
+        a {
+          width: 96%;
+        }
+      }
+    }
+  }
+
+  .currency-icon {
+    display: inline-block;
+    min-width: 15px;
+  }
+
+  .share-name-title{
+    font-family: Montserrat SemiBold;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+  }
+
+  .share-table-btn{
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #767676;
+    border-radius: 10px;
+    padding: 6px 35.5px;
+    text-align: center;
+
+    &:hover{
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+  
+    p{
+      font-family: Montserrat Semibold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      color: #FFFFFF;
+    }
+  }
+}
+
+
+@media screen and (max-width: 1240px) {
+  .shares-view{
+    width: 100%;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}

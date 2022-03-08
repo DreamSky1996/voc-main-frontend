@@ -1,0 +1,1 @@
+export { abi as VOCTokenContract } from "./VOCToken.json";

@@ -1,0 +1,200 @@
+.voc-view{
+  width: 89%;
+  max-width: 833px;
+  margin: auto;
+
+  .voc-card{
+    position: relative;
+    z-index: 2;
+    
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
+    }
+  
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: #181B1C;
+    }
+
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+
+    .voc-card-grid{
+      margin: 0;
+      width: 100%;
+    }
+
+    .voc-card-header{
+      .voc-card-header-title{
+        font-family: Montserrat Bold;
+        font-weight: bold;
+        font-size: 20px;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+      }
+    }
+
+    .voc-card-metrics {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      margin-top: 10px;
+      
+      .voc-card-apy,
+      .voc-card-tvl,
+      .voc-card-index {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .voc-card-metrics-title{
+          font-family: Montserrat Medium;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 2px;
+        }
+        
+        .voc-card-metrics-value{
+          font-family: Montserrat Bold;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 29px;
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    .voc-card-area {
+      .voc-card-wallet-notification{
+        text-align: center;
+
+        .voc-card-wallet-connect-btn{
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+          border-radius: 10px;
+          padding: 14px 58px;
+          cursor: pointer;
+          margin: auto;
+          max-width: 280px;
+          margin-top: 20px;
+
+          &:hover{
+            border: 1px solid rgba(255, 255, 255, 0.6);
+          }
+        
+          p{
+            font-family: Montserrat SemiBold;
+            font-weight: 600;
+            font-size: 18px;
+            color: #FFFFFF;
+          }
+        }
+
+        .voc-card-wallet-desc-text{
+          font-family: Montserrat Light;
+          font-weight: 300;
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-top: 10px;
+          margin-bottom: 6px;
+        }
+      }
+
+      .voc-card-action-area{
+        margin-top: 25px;
+        .voc-card-action-btn{
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+          border-radius: 10px;
+          padding: 14px 50px;
+          cursor: pointer;
+          margin: auto;
+          max-width: 260px;
+          margin-top: 20px;
+
+          &:hover{
+            border: 1px solid rgba(255, 255, 255, 0.6);
+          }
+        
+          p{
+            font-family: Montserrat SemiBold;
+            font-weight: 600;
+            font-size: 16px;
+            color: #FFFFFF;
+          }
+        }
+      }
+    }
+  }
+}
+
+.data-row{
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0px;
+
+  .data-row-name{
+    font-family: Montserrat Medium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    color: #FFFFFF;
+  }
+  .data-row-value{
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 17px;
+    color: #FFFFFF;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .voc-view{
+    .voc-card{
+      .voc-card-metrics{
+        .voc-card-apy,
+        .voc-card-tvl,
+        .voc-card-index {
+          align-items: flex-start;
+        }
+
+        .voc-card {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+
+      .voc-card-area{
+        .voc-card-action-area{
+          .voc-card-action-row{
+            flex-direction: column;
+            .voc-card-tab-panel{
+              margin-left: 0;
+              margin-top: 20px;
+              min-width: none;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1240px) {
+  .voc-view{
+    width: 100%;
+  }
+}
