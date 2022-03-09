@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import { Paper, Grid, Box, OutlinedInput, Zoom } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { ShareTableData, ShareDataCard } from "./ShareRow";
@@ -7,16 +8,27 @@ import { useWeb3Context } from "../../hooks";
 import "./shares.scss";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
+import { createShare } from "../../store/slices/share-thunk";
 import { IShare } from "../../store/slices/account-slice";
+import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
+import { warning } from "../../store/slices/messages-slice";
+import { messages } from "../../constants/messages";
 
-const bonds = [{ name: "1" }, { name: "2" }, { name: "3" }, { name: "4" }, { name: "5" }, { name: "6" }, { name: "7" }, { name: "8" }];
 
 function Shares() {
     const dispatch = useDispatch();
     const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
 
     const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
+
+    const [shareName, setshareName] = useState<string>("");
+
+    const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
+        return state.pendingTransactions;
+    });
+
     const isAccountLoading = useSelector<IReduxState, boolean>(state => state.account.loading);
+    
     const account_shares_number = useSelector<IReduxState, number>(state => {
         return state.account.account_shares_number;
     });
@@ -28,6 +40,15 @@ function Shares() {
     const account_shares = useSelector<IReduxState, IShare[]>(state => {
         return state.account.account_shares;
     });
+
+    const onCreateShare =async () => {
+        if (await checkWrongNetwork()) return;
+        if (shareName === "") {
+            dispatch(warning({ text:  messages.before_createShare }));
+        } else {
+            await dispatch(createShare({ address, name: shareName, provider, networkID: chainID }));
+        }
+    }
 
     return (
         <div className="shares-view">
@@ -71,11 +92,22 @@ function Shares() {
                                         </div>
                                     </Grid>
                                     <Grid item sm={8} md={8} lg={8} xs={12}>
-                                        <OutlinedInput placeholder="Please Input Name" className="share-create-action-input" />
+                                        <OutlinedInput 
+                                            placeholder="Please Input Name" 
+                                            className="share-create-action-input" 
+                                            value={shareName}
+                                            onChange={e => setshareName(e.target.value)}
+                                        />
                                     </Grid>
                                 </Grid>
-                                <div className="share-create-btn">
-                                    <p>Create Share</p>
+                                <div 
+                                    className="share-create-btn"
+                                    onClick={() => {
+                                        if (isPendingTxn(pendingTransactions, "Creating")) return;
+                                        onCreateShare();
+                                    }}
+                                >
+                                    <p>{txnButtonText(pendingTransactions, "Creating", "Create Share")}</p>
                                 </div>
                             </div>
 

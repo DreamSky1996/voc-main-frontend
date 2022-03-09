@@ -46,7 +46,7 @@ export const loadAccountDetails = createAsyncThunk(
                 name: account_shares_names_list[index],
                 reward: ethers.utils.formatUnits(accounnt_shares_rewards_list[index], "ether"),
                 creatime: account_shares_creatime_list[index],
-            })
+            });
         }
 
         return {

@@ -2,7 +2,7 @@ export const messages = {
     please_connect: "Please connect your wallet to the Ethereum network to use VOC .",
     please_connect_wallet: "Please connect your wallet.",
     try_mint_more: (value: string) => `You're trying to mint more than the maximum payout available! The maximum mint payout is ${value} DFIRE.`,
-    before_minting: "Before minting, enter a value.",
+    before_createShare: "Before creating share, enter a name.",
     existing_mint:
         "You have an existing mint. Minting will reset your vesting period and forfeit any pending claimable rewards. We recommend claiming rewards first or using a fresh wallet. Do you still wish to proceed?",
     before_stake: "Before staking, enter a value.",
@@ -15,6 +15,6 @@ export const messages = {
     slippage_too_small: "Slippage too small",
     slippage_too_big: "Slippage too big",
     your_balance_update_soon: "Your balance will update soon",
-    before_wrap: "Before wraping, enter a value.",
-    before_unwrap: "Before un wraping, enter a value.",
+    before_claimRewards: "Before wraping, share has some claimable balance.",
+    before_reclaimShare: "Before reclaiming Share, you have to claim rewards.",
 };
