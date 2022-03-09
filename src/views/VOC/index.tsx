@@ -36,11 +36,11 @@ function VOC() {
 
     const onClaimAllRewards =async () => {
         if (await checkWrongNetwork()) return;
-        // if (Number(account_unclaimed_balance) === 0) {
-        //     dispatch(warning({ text:  messages.before_claimRewards }));
-        // } else {
+        if (Number(account_unclaimed_balance) === 0) {
+            dispatch(warning({ text:  messages.before_claimRewards }));
+        } else {
             await dispatch(claimAllRewards({ address, provider, networkID: chainID }));
-        // }
+        }
     }
 
     const onReclaimAllShares =async () => {

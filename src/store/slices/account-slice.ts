@@ -29,24 +29,24 @@ export const loadAccountDetails = createAsyncThunk(
         const account_shares_number = await vocContract.getNodeNumberOf(address);
         
         let account_unclaimed_balance = '0';
-        if(account_shares_number > 0) {
-            // account_unclaimed_balance = await vocContract.getRewardAmount(address);
-        }
-
-        const account_shares_names = await vocContract.getNodesNamesOf(address);
-        const account_shares_names_list = account_shares_names.split('#');
-        const account_shares_creatime = await vocContract.getNodesCreatimeOf(address);
-        const account_shares_creatime_list = account_shares_creatime.split('#');
-        const account_shares_rewards = await vocContract.getNodesRewardsOf(address);
-        const accounnt_shares_rewards_list = account_shares_rewards.split('#');
-
         let account_shares : Array<IShare>= [];
-        for (let index = 0; index < account_shares_number; index++) {
-            account_shares.push({
-                name: account_shares_names_list[index],
-                reward: ethers.utils.formatUnits(accounnt_shares_rewards_list[index], "ether"),
-                creatime: account_shares_creatime_list[index],
-            });
+        if(account_shares_number > 0) {
+            account_unclaimed_balance = await vocContract.getRewardAmountOf(address);
+            const account_shares_names = await vocContract.getNodesNamesOf(address);
+            const account_shares_names_list = account_shares_names.split('#');
+            const account_shares_creatime = await vocContract.getNodesCreatimeOf(address);
+            const account_shares_creatime_list = account_shares_creatime.split('#');
+            const account_shares_rewards = await vocContract.getNodesRewardsOf(address);
+            const accounnt_shares_rewards_list = account_shares_rewards.split('#');
+
+        
+            for (let index = 0; index < account_shares_number; index++) {
+                account_shares.push({
+                    name: account_shares_names_list[index],
+                    reward: ethers.utils.formatUnits(accounnt_shares_rewards_list[index], "ether"),
+                    creatime: account_shares_creatime_list[index],
+                });
+            }
         }
 
         return {

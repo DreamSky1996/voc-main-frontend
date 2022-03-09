@@ -466,19 +466,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "getNodesCreatime",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "address",
@@ -498,19 +485,6 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "getNodesNames",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
       "inputs": [
         {
           "internalType": "address",
@@ -519,19 +493,6 @@
         }
       ],
       "name": "getNodesNamesOf",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getNodesRewards",
       "outputs": [
         {
           "internalType": "string",
@@ -563,7 +524,7 @@
     },
     {
       "inputs": [],
-      "name": "getRemoveNodePrice",
+      "name": "getProcessedTime",
       "outputs": [
         {
           "internalType": "uint256",
@@ -576,7 +537,7 @@
     },
     {
       "inputs": [],
-      "name": "getRewardAmount",
+      "name": "getRemoveNodePrice",
       "outputs": [
         {
           "internalType": "uint256",

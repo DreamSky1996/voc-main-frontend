@@ -17,6 +17,12 @@ function Dashboard() {
     const totalShares = useSelector<IReduxState, number>(state => {
         return state.app.totalShares;
     });
+    const processedDay = useSelector<IReduxState, number>(state => {
+        return state.app.processedDay;
+    });
+    const marketPrice = useSelector<IReduxState, number>(state => {
+        return state.app.marketPrice;
+    });
 
     return (
         <div className="dashboard-view">
@@ -28,7 +34,7 @@ function Dashboard() {
                             <div className="dashboard-card">
                                 <p className="card-title">Day #</p>
                                 <p className="card-value">
-                                    aaa
+                                    {isAppLoading ? <Skeleton width="80px" /> : processedDay}
                                 </p>
                             </div>
                         </Grid>
@@ -54,7 +60,9 @@ function Dashboard() {
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title">VOC Price</p>
-                                <p className="card-value">aaa</p>
+                                <p className="card-value">
+                                    {isAppLoading ? <Skeleton width="80px" /> : <>$ {trim(marketPrice, 5)}</>}
+                                </p>
                             </div>
                         </Grid>
                     </Grid>

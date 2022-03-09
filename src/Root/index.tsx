@@ -5,7 +5,9 @@ import { IReduxState } from "../store/slices/state.interface";
 import { loadAppDetails } from "../store/slices/app-slice";
 import { loadAccountDetails } from "../store/slices/account-slice";
 import { useAddress, useWeb3Context } from "../hooks";
+import { loadTokenPrices } from "../helpers";
 import ViewBase from "../components/ViewBase";
+import Loading from "../components/Loader";
 import { Dashboard, VOC, Shares, NotFound } from "../views";
 import "./style.scss";
 
@@ -16,7 +18,14 @@ function Root() {
     const { connect, provider, hasCachedProvider, chainID, connected } = useWeb3Context();
     const address = useAddress();
     const [walletChecked, setWalletChecked] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+   
+
+    
+
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
+    
     async function loadDetails(whichDetails: string) {
         let loadProvider = provider;
 
@@ -46,6 +55,7 @@ function Root() {
     );
 
     useEffect(() => {
+        loadTokenPrices().then(() => setLoading(false));
         if (hasCachedProvider()) {
             connect().then(() => {
                 setWalletChecked(true);
@@ -68,6 +78,8 @@ function Root() {
             loadDetails("account");
         }
     }, [connected]);
+
+    if (loading) return <Loading />;
 
     return (
         <HashRouter>

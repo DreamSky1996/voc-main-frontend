@@ -3,7 +3,7 @@ import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit"
 import { JsonRpcProvider } from "@ethersproject/providers";
 import { getAddresses } from "../../constants";
 import { RootState } from "../store";
-import { setAll } from "../../helpers";
+import { setAll, calcDate, getTokenPrice, getMarketPrice } from "../../helpers";
 import {VOCTokenContract} from "../../abi";
 
 interface ILoadAppDetails {
@@ -17,19 +17,20 @@ export const loadAppDetails = createAsyncThunk(
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
         const addresses = getAddresses(networkID);
-        // const genesisContract = new ethers.Contract(addresses.GENESIS_ADDRESS, GenesisContract, provider);
-        // const investAmount = await genesisContract.totalInvestAmount();
-        // const startTime = await genesisContract.startTime();
-        // const distributeTime = await genesisContract.distributeTime();
-        // const processedDay = calcDate(startTime, distributeTime);
+        const ethPrice = getTokenPrice("ETH");
+        const marketPrice = (await getMarketPrice(networkID, provider))  * ethPrice;
+        console.log(marketPrice);
         const vocContract = new ethers.Contract(addresses.VOC_ADDRESS, VOCTokenContract, provider);
         const totalSupply = await vocContract.totalSupply();
         const totalShares = await vocContract.getTotalCreatedNodes();
+        const processedTime = await vocContract.getProcessedTime();
+        const processedDay = calcDate(processedTime);
+        
         return {
-            // total_invest: ethers.utils.formatUnits(investAmount, "ether"),
             totalSupply: ethers.utils.formatUnits(totalSupply, "ether"),
             totalShares: totalShares.toNumber(),
-            // processedDay: processedDay,
+            processedDay: processedDay,
+            marketPrice: marketPrice,
         };
     },
 );
@@ -42,6 +43,8 @@ export interface IAppSlice {
     loading: boolean;
     totalSupply: string;
     totalShares: number;
+    processedDay: number;
+    marketPrice: number;
 }
 
 const appSlice = createSlice({

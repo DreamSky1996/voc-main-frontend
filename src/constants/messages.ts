@@ -15,6 +15,6 @@ export const messages = {
     slippage_too_small: "Slippage too small",
     slippage_too_big: "Slippage too big",
     your_balance_update_soon: "Your balance will update soon",
-    before_claimRewards: "Before wraping, share has some claimable balance.",
-    before_reclaimShare: "Before reclaiming Share, you have to claim rewards.",
+    before_claimRewards: "You don't have claimable rewards.",
+    before_reclaimShare: "You don't have shares.",
 };
