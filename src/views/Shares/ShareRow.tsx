@@ -16,6 +16,26 @@ interface IShareProps {
 }
 
 export function ShareDataCard({ share }: IShareProps) {
+    const dispatch = useDispatch();
+    const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
+    const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
+        return state.pendingTransactions;
+    });
+
+    const onClaimRewards =async () => {
+        if (await checkWrongNetwork()) return;
+        if (Number(share.reward) === 0) {
+            dispatch(warning({ text:  messages.before_claimRewards }));
+        } else {
+            await dispatch(claimRewards({ address, creatime: share.creatime, provider, networkID: chainID }));
+        }
+    }
+
+    const onReclaimShare =async () => {
+        if (await checkWrongNetwork()) return;
+        await dispatch(reclaimShare({ address, creatime: share.creatime, provider, networkID: chainID }));
+    }
+
     return (
         <Slide direction="up" in={true}>
             <Paper className="share-data-card">
@@ -30,11 +50,24 @@ export function ShareDataCard({ share }: IShareProps) {
                     <p className="share-price share-name-title">{trim(Number(share.reward), 4)} VOC</p>
                 </div>
 
-                <div className="share-table-btn">
-                    <p>Claim Rewards</p>
+                <div 
+                    className="share-table-btn"
+                    onClick={() => {
+                        if (isPendingTxn(pendingTransactions, "ClaimingOf" + share.creatime)) return;
+                        onClaimRewards();
+                    }}
+                >
+                    <p>{txnButtonText(pendingTransactions, "ClaimingOf" + share.creatime, "Claim Rewards")}</p>
                 </div>
-                <div className="share-table-btn" style={{ marginTop: "15px" }}>
-                    <p>Reclaim Share</p>
+                <div 
+                    className="share-table-btn" 
+                    style={{ marginTop: "15px" }}
+                    onClick={() => {
+                        if (isPendingTxn(pendingTransactions, "ReclaimingOf" + share.creatime)) return;
+                        onReclaimShare();
+                    }}
+                >
+                    <p>{txnButtonText(pendingTransactions, "ReclaimingOf" + share.creatime, "Reclaim Share")}</p>
                 </div>
             </Paper>
         </Slide>

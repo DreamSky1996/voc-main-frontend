@@ -21,7 +21,7 @@ function Shares() {
 
     const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
 
-    const [shareName, setshareName] = useState<string>("");
+    const [shareName, setShareName] = useState<string>("");
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -47,6 +47,7 @@ function Shares() {
             dispatch(warning({ text:  messages.before_createShare }));
         } else {
             await dispatch(createShare({ address, name: shareName, provider, networkID: chainID }));
+            setShareName("");
         }
     }
 
@@ -96,7 +97,7 @@ function Shares() {
                                             placeholder="Please Input Name" 
                                             className="share-create-action-input" 
                                             value={shareName}
-                                            onChange={e => setshareName(e.target.value)}
+                                            onChange={e => setShareName(e.target.value)}
                                         />
                                     </Grid>
                                 </Grid>
