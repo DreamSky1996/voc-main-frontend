@@ -126,3 +126,79 @@ export const reclaimShare = createAsyncThunk("share/reclaimShare", async ({ crea
     dispatch(info({ text: messages.your_balance_updated }));
     return;
 });
+
+interface IReclaimAllShare {
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    address: string;
+    networkID: Networks;
+}
+
+export const reclaimAllShare = createAsyncThunk("share/reclaimAllShare", async ({ provider, address, networkID }: IReclaimAllShare, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+    const addresses = getAddresses(networkID);
+    const signer = provider.getSigner();
+    const vocContract = new ethers.Contract(addresses.VOC_ADDRESS, VOCTokenContract, signer);
+
+    let reclaimAllTx;
+
+    try {
+        reclaimAllTx = await vocContract.removeNodeAll();
+        const pendingTxnType = "ReclaimingAllShare";
+        dispatch(fetchPendingTxns({ txnHash: reclaimAllTx.hash, text: "Reclaiming All Share", type: pendingTxnType }));
+        await reclaimAllTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+    } catch (err: any) {
+        return metamaskErrorWrap(err, dispatch);
+    } finally {
+        if (reclaimAllTx) {
+            dispatch(clearPendingTxn(reclaimAllTx.hash));
+        }
+    }
+    dispatch(info({ text: messages.your_balance_update_soon }));
+    await sleep(2);
+    await dispatch(loadAccountDetails({ address, networkID, provider }));
+    await dispatch(loadAppDetails({ networkID, provider }));
+    dispatch(info({ text: messages.your_balance_updated }));
+    return;
+});
+
+interface IClaimAllRewards {
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    address: string;
+    networkID: Networks;
+}
+
+export const claimAllRewards = createAsyncThunk("share/claimAllRewards", async ({ provider, address, networkID }: IClaimAllRewards, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+    const addresses = getAddresses(networkID);
+    const signer = provider.getSigner();
+    const vocContract = new ethers.Contract(addresses.VOC_ADDRESS, VOCTokenContract, signer);
+
+    let claimAllTx;
+
+    try {
+        claimAllTx = await vocContract.cashoutAll();
+        const pendingTxnType = "ClaimingAllRewards";
+        dispatch(fetchPendingTxns({ txnHash: claimAllTx.hash, text: "Claiming All Rewards", type: pendingTxnType }));
+        await claimAllTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+    } catch (err: any) {
+        return metamaskErrorWrap(err, dispatch);
+    } finally {
+        if (claimAllTx) {
+            dispatch(clearPendingTxn(claimAllTx.hash));
+        }
+    }
+    dispatch(info({ text: messages.your_balance_update_soon }));
+    await sleep(2);
+    await dispatch(loadAccountDetails({ address, networkID, provider }));
+    await dispatch(loadAppDetails({ networkID, provider }));
+    dispatch(info({ text: messages.your_balance_updated }));
+    return;
+});

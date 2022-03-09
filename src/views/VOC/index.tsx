@@ -7,6 +7,7 @@ import { useWeb3Context } from "../../hooks";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
+import { reclaimAllShare, claimAllRewards } from "../../store/slices/share-thunk";
 import { messages } from "../../constants/messages";
 import { warning } from "../../store/slices/messages-slice";
 import classnames from "classnames";
@@ -28,6 +29,28 @@ function VOC() {
     const account_unclaimed_balance = useSelector<IReduxState, string>(state => {
         return state.account.account_unclaimed_balance;
     });
+
+    const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
+        return state.pendingTransactions;
+    });
+
+    const onClaimAllRewards =async () => {
+        if (await checkWrongNetwork()) return;
+        // if (Number(account_unclaimed_balance) === 0) {
+        //     dispatch(warning({ text:  messages.before_claimRewards }));
+        // } else {
+            await dispatch(claimAllRewards({ address, provider, networkID: chainID }));
+        // }
+    }
+
+    const onReclaimAllShares =async () => {
+        if (await checkWrongNetwork()) return;
+        if (account_shares_number === 0) {
+            dispatch(warning({ text:  messages.before_reclaimAllShares }));
+        } else {
+            await dispatch(reclaimAllShare({ address, provider, networkID: chainID }));
+        }
+    }
 
     return (
         <div className="voc-view">
@@ -85,13 +108,25 @@ function VOC() {
                             {address && (
                                 <Grid container spacing={1} className="voc-card-action-area">
                                     <Grid item xs={12} sm={6} md={6} lg={6}>
-                                        <div className="voc-card-action-btn">
-                                            <p>Claim All Rewards</p>
+                                        <div 
+                                            className="voc-card-action-btn"
+                                            onClick={() => {
+                                                if (isPendingTxn(pendingTransactions, "ClaimingAllRewards")) return;
+                                                onClaimAllRewards();
+                                            }}
+                                        >
+                                            <p>{txnButtonText(pendingTransactions, "ClaimingAllRewards", "Claim All Rewards")}</p>
                                         </div>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={6} lg={6}>
-                                        <div className="voc-card-action-btn">
-                                            <p>Reclaim All Shares</p>
+                                        <div 
+                                            className="voc-card-action-btn"
+                                            onClick={() => {
+                                                if (isPendingTxn(pendingTransactions, "ReclaimingAllShare")) return;
+                                                onReclaimAllShares();
+                                            }}
+                                        >
+                                            <p>{txnButtonText(pendingTransactions, "ReclaimingAllShare", "Reclaim All Shares")}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
