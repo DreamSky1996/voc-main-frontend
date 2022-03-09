@@ -7,6 +7,7 @@ export const loadTokenPrices = async () => {
     const { data } = await axios.get(url);
 
     cache["ETH"] = data["ethereum"].usd;
+    console.log(data);
     // cache["ETH"] = 2742.52;
     
 };
