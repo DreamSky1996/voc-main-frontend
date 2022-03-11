@@ -1,8 +1,8 @@
 import { Networks } from "./blockchain";
 
 const RINEYBY_TESTNET = {
-    VOC_ADDRESS: "0xfbc7D0F69Ce2714eC01e3225ccF2402A4cE79c60",
-    LP_ETH_VOC_ADDRESS: "0xb74990920570312ACC02EcDE82C1FB503f907B6a",
+    VOC_ADDRESS: "0xDFe99b481986cC1e8aB83dF8424eDA5c2aCEbF43",
+    LP_ETH_VOC_ADDRESS: "0x00F99d663e5C41328cED2e00bD8984a33c4CB4d4",
 };
 
 export const getAddresses = (networkID: number) => {
