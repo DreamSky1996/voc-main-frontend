@@ -23,7 +23,6 @@ export const loadAccountDetails = createAsyncThunk(
     //@ts-ignore
     async ({ address, networkID, provider }: ILoadAccountDetails) => {
         const addresses = getAddresses(networkID);
-        
         const vocContract = new ethers.Contract(addresses.VOC_ADDRESS, VOCTokenContract, provider);
         const account_voc_balance = await vocContract.balanceOf(address);
         const account_shares_number = await vocContract.getNodeNumberOf(address);

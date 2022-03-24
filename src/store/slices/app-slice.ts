@@ -17,8 +17,8 @@ export const loadAppDetails = createAsyncThunk(
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
         const addresses = getAddresses(networkID);
-        const ethPrice = getTokenPrice("ETH");
-        const marketPrice = (await getMarketPrice(networkID, provider))  * ethPrice;
+        const usdcPrice = getTokenPrice("USDC");
+        const marketPrice = (await getMarketPrice(networkID, provider))  * usdcPrice;
         console.log(marketPrice);
         const vocContract = new ethers.Contract(addresses.VOC_ADDRESS, VOCTokenContract, provider);
         const totalSupply = await vocContract.totalSupply();

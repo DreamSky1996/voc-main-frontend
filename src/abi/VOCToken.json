@@ -6,6 +6,11 @@
           "internalType": "address",
           "name": "uniV2Router",
           "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_usdcAddres",
+          "type": "address"
         }
       ],
       "stateMutability": "nonpayable",
@@ -110,31 +115,6 @@
         }
       ],
       "name": "SetAutomatedMarketMakerPair",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokensSwapped",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "ethReceived",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "tokensIntoLiqudity",
-          "type": "uint256"
-        }
-      ],
-      "name": "SwapAndLiquify",
       "type": "event"
     },
     {
@@ -352,19 +332,6 @@
     },
     {
       "inputs": [],
-      "name": "deadWallet",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
       "name": "decimals",
       "outputs": [
         {
@@ -403,6 +370,19 @@
     {
       "inputs": [],
       "name": "distributeRewards",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blocktime",
+          "type": "uint256"
+        }
+      ],
+      "name": "emergencyRemoveNode",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -914,6 +894,19 @@
       "name": "updateUniswapV2Router",
       "outputs": [],
       "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "usdcAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
       "type": "function"
     },
     {

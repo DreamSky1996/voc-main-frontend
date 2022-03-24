@@ -65,6 +65,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     options: {
                         rpc: {
                             [Networks.RINKEBY]: getMainnetURI(),
+                            [Networks.KOVAN]: getMainnetURI(), 
                         },
                     },
                 },
@@ -118,7 +119,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.RINKEBY) {
+        if (chainId === DEFAULD_NETWORK) {
             setProvider(connectedProvider);
         }
 
