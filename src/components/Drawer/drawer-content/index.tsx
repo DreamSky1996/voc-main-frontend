@@ -6,7 +6,8 @@ import BondIcon from "../../../assets/icons/bond.svg";
 import VOCLogo from "../../../assets/icons/voc-logo.png";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import { trim, shorten } from "../../../helpers";
-import { useAddress } from "../../../hooks";
+import { useAddress, getChainID } from "../../../hooks";
+import { getScanURL } from "../../../hooks/web3/helpers";
 import { Link } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
@@ -15,6 +16,9 @@ import classnames from "classnames";
 function NavContent() {
     const [isActive] = useState();
     const address = useAddress();
+
+    const chainID = getChainID();
+    const scanUrl = getScanURL(chainID);
 
     const checkPage = useCallback((location: any, page: string): boolean => {
         const currentPath = location.pathname.replace("/", "");
@@ -37,7 +41,7 @@ function NavContent() {
 
                 {address && (
                     <div className="wallet-link">
-                        <Link href={`https://rinkeby.etherscan.io/address/${address}`} target="_blank">
+                        <Link href={`${scanUrl}${address}`} target="_blank">
                             <p>{shorten(address)}</p>
                         </Link>
                     </div>

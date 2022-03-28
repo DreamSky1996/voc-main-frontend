@@ -45,6 +45,11 @@ export const useAddress = () => {
     return address;
 };
 
+export const getChainID = () => {
+    const { chainID } = useWeb3Context();
+    return chainID;
+};
+
 export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ children }) => {
     const dispatch = useDispatch();
 

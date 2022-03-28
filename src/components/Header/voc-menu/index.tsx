@@ -41,6 +41,7 @@ function VOCMenu() {
     const addresses = getAddresses(networkID);
 
     const VOC_ADDRESS = addresses.VOC_ADDRESS;
+    const USDC_ADDRESS = addresses.USDC_ADDRESS;
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -58,7 +59,7 @@ function VOCMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://app.uniswap.org/#/swap?chain=rinkeby&inputCurrency=eth&outputCurrency=${VOC_ADDRESS}`} target="_blank">
+                            <Link className="tooltip-item" href={`https://app.uniswap.org/#/swap?chain=kovan&inputCurrency=${USDC_ADDRESS}&outputCurrency=${VOC_ADDRESS}`} target="_blank">
                                 <p>Buy on Uniswap</p>
                             </Link>
 
